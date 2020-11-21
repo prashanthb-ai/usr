@@ -6,9 +6,9 @@ value (`ip * W + bias`) by the Neuron. Without Activation, all NNs turn into
 linear regressions (i.e predictions of such a network would lie on/around a
 plane, hyper-plane or line). Real world phenomenon usually model non-linear
 functions, which require non-linear Activations.
-    - Relu: hidden layers. 0 for x < 0, x for x >= 0
-    - Sigmoid: o/p in the range of 0 and 1. Probabilities.
-    - Softmax: typically the o/p layer of classification networks. N probability classes. Sum of all classes = 1.
+    - `Relu`: hidden layers. 0 for x < 0, x for x >= 0
+    - `Sigmoid`: o/p in the range of 0 and 1. Probabilities.
+    - `Softmax`: typically the o/p layer of classification networks. N probability classes. Sum of all classes = 1.
 * Bias: A shift applied to the activation function graph. Bias and Activation
   allow the network to search through the solution space.
 

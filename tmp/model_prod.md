@@ -37,6 +37,13 @@ Eager mode -> Script mode (@torch.jit.script)
 * Tape based autodifferentiation
 * Torchscript: Serialized torch code that we can load into a non-python server (c++)
 
+## Airflow
+
+```
+ETL -> train -> test -> push -> deploy
+```
+* Airflow + Amundsen (lift)
+
 
 
 ## Appendix

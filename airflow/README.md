@@ -36,6 +36,9 @@ Running DAGs
 $ airflow trigger_dag helloworld
 ```
 
+* Trigger dags work even if the DAG is "off" in the UI
+* Turning the DAG "on" in the UI is equivalent to running `airflow run`
+
 ## Debug
 
 * Scripts showing up in `list_dags` but not in the UI
@@ -55,3 +58,8 @@ PermissionError: [Errno 13] Permission denied: '/media/radifar/radifar-dsl/Workf
 * set `load_examples=False` in `airflow.cfg`
     - probably a bug, it's using a relative link from the specified DAG dir for
       the logs dir too (which is configured as `~/airflow/logs/`)
+
+## Appendix
+
+* [Quick start](https://airflow.apache.org/docs/stable/start.html)
+* [Cloud compose](https://cloud.google.com/composer/)

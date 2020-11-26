@@ -55,3 +55,18 @@ train = get_dataset()
 print("train dataset length {}".format(len(train)))
 test = get_dataset(train=False)
 print("test dataset length {}".format(len(test)))
+
+# Data loader API is such that when you iterate over it, you get back 2 sets
+# of "images". One of the actual image, and one of the int representation.
+data_loader = get_train_loader()
+
+# images is the actual PIL image.
+# expected_results are the actual digit int representatin of each PIL image.
+# The data loader returns BATCH_SIZE # of such images.
+images, expected_results = next(iter(data_loader))
+
+# Classes are mapped to indices in the output via data_loader.dataset.classes
+# This shows an array, where the index corresponds to the index of the output
+# neuron configured to trigger on activation, and the value is the actual label
+# value to use for that classification.
+print(data_loader.dataset.classes)

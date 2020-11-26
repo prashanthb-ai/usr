@@ -44,6 +44,31 @@ ETL -> train -> test -> push -> deploy
 ```
 * Airflow + Amundsen (lift)
 
+## CI/CD
+
+* kubeflow, Azure ml + GH + CI/CD platform (jenkins)
+    - tune hyperparams
+* Tensorboard -> GH -> SRE not happy
+    - HW/SW stack, driver version, hard coded heuristics, latency, x datacenter
+      latency, doesn't predict outliers
+    - Who goes on call for this?
+* Tensorboard -> GH -> explain model/look for bias, package for rollout, deploy
+    - Canary a deployment: 1,10% ...
+    - Auditability: what data the ml researcher trained on
+    - Explainability: lots of tools out there, can't even begin to use them
+        * Need some basic SHA tracking all the way back to dataset used
+* Models can go stale quickly
+    - Distributions shift
+    - Automated systems that understand this is critical
+    - Tooling for data scientists to pick and choose a model for canary vs prod
+        * ml flows is doing this?
+        * kubeflow and kale: notebook -> python
+
+
+
+
+
+
 
 
 ## Appendix

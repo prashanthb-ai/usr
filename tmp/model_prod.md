@@ -64,9 +64,39 @@ ETL -> train -> test -> push -> deploy
         * ml flows is doing this?
         * kubeflow and kale: notebook -> python
 
+## Mlops
 
+[Source](https://cloud.google.com/solutions/machine-learning/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)
+[Hidden technical debt in ml systems](https://papers.nips.cc/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf)
 
+* Assemply line analogy for ml delivery (continuous, automatic)
 
+```
+         -------------local data
+         |              |                              Data Science                   Dev
+         |           manual steps                       training       S3 storage   Serving
+         v           ------------                                           |
+Exploratory data -> data prep -> model train -> model eval -> Trained model | Model deploy
+                                    ^             |                         |
+                                    |_____________|
+
+```
+* What's wrong with this model?
+    - Tuning is more of a dark art: Manual steps, inflexible, not reusable, error prone
+    - Training / serving skew
+    - Hard to debug / explain
+
+```
+        Train                                       Serve
+                                       |
+Experimentation -> Continuous training | -> model ci/cd -> Continuous monitoring
+                  rebuild training on  |    auditable       High quality improvement
+                  new data             |    reversible       signals
+```
+
+* Provenance: Who created the mode and what data was it trained on?
+
+### Sagemaker
 
 
 

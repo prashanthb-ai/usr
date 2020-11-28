@@ -1,5 +1,11 @@
 # Apache Airflow
 
+To install airflow manually, follow the steps in the Dockerfile. To start airflow manually:
+```
+$ airflow webserver -p 8080 -D
+$ airflow scheduler
+```
+
 Container usage
 ```
 $ docker build . -t bprashanth/apache-airflow:0.1

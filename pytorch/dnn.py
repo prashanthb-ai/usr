@@ -30,16 +30,36 @@ class Net(nn.Module):
 
 data_loader = dataloader.get_train_loader()
 
+# Invokes the provided loss function after transforming the inputs.
+def _loss(pred, expected, loss_fn):
+    normalized_expected = []
+    # The expected values are ints, while the predicted values are arrays of
+    # probabilities. Transform the former to be more like the latter, i.e
+    # expected = [1,2] -> [[1.0, 0.0, ... len(pred)], [0.0, 1.0, ..len(pred)]]
+    for i in expected:
+        ne = [0.0 for _ in pred]
+        ne[i] = 1.0
+        normalized_expected.append(ne)
+    normalized_expected = torch.tensor(normalized_expected)
+    return loss_fn(pred, normalized_expected)
+
+
 model = Net()
+optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
+loss_fn = nn.MSELoss()
+
 for i in range(NUM_EPOCHS):
     for batch in enumerate(data_loader):
+
+        # Get one data set from the loader
         i, (images, expected) = batch
+
+        # Run the forward pass of the model to produce an array (one for each
+        # expected value/input image) of arrays (one for each output class) of
+        # probabilities.
         predicted = model(images)
-        # for j in range(len(predicted)):
-        #    print("Got: {}, Expected: {}".format(
-        #        torch.argmax(predicted[j]), expected[j]))
 
-    # TODO: Compute MSE loss
-    # loss =
+        # Compute the MSE loss.
+        loss = _loss(predicted, expected, loss_fn)
 
-
+        # TODO: optimize and call loss.backwards()

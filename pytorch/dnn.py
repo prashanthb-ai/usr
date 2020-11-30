@@ -47,19 +47,39 @@ def _loss(pred, expected, loss_fn):
 model = Net()
 optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
 loss_fn = nn.MSELoss()
+import pudb; pudb.set_trace()
+
 
 for i in range(NUM_EPOCHS):
+    # TODO: Call model.train() after testing the model, i.e print the ratio of
+    # correct vs total predictions against the test dataset.
     for batch in enumerate(data_loader):
-
         # Get one data set from the loader
         i, (images, expected) = batch
 
         # Run the forward pass of the model to produce an array (one for each
         # expected value/input image) of arrays (one for each output class) of
         # probabilities.
+        #
+        # Pytorch builds a graph of all this models parameters for subsequent
+        # gradient computations via loss.backward().
         predicted = model(images)
 
+        # Zero out pytorch's runtime heap gradient buffers.
+        optimizer.zero_grad()
+
         # Compute the MSE loss.
+        # This step actually computes the loss and differentiates the loss
+        # function wrt all parameters marked as requiring a gradient
+        # (requires_gradient=True).
         loss = _loss(predicted, expected, loss_fn)
 
-        # TODO: optimize and call loss.backwards()
+        # Compute gradients via back propogation.
+        # This operates on the intermediate NN layer of the model stored by
+        # pytorch during the forward pass of the model.
+        loss.backward()
+
+        # Apply the computed gradients to weight/bias update.
+        # NB: The loss and optimize functions are connected to the model via
+        # pytorch.
+        optimizer.step()

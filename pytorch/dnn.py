@@ -44,18 +44,37 @@ def _loss(pred, expected, loss_fn):
     return loss_fn(pred, normalized_expected)
 
 
+# Tests the given model with dat from the given loader.
+# Prints out ratio of correct predictions / total values.
+def test_model(model, loader, epoch):
+    # Prepare the model for evaluation by turning off certain preconfigured
+    # layers that shouldn't be activated during evaluation.
+    model.eval()
+    # Tell pytorch to stop tracking gradients. This, along with model.eval,
+    # allows us to reuse the same test dataset repeatedly because no state
+    # is remembered.
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for batch in loader:
+            images, expected = batch
+            output = model(images)
+            predicted = torch.argmax(output, dim=1)
+            correct += (predicted == expected).sum()
+            total += len(expected)
+        print("Epoch {}: correct: {}, total: {}".format(
+            epoch, correct, total))
+
+
 model = Net()
 optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
 loss_fn = nn.MSELoss()
-import pudb; pudb.set_trace()
 
-
-for i in range(NUM_EPOCHS):
-    # TODO: Call model.train() after testing the model, i.e print the ratio of
-    # correct vs total predictions against the test dataset.
+for epoch in range(NUM_EPOCHS):
+    # TODO: Call model.train().
     for batch in enumerate(data_loader):
         # Get one data set from the loader
-        i, (images, expected) = batch
+        _, (images, expected) = batch
 
         # Run the forward pass of the model to produce an array (one for each
         # expected value/input image) of arrays (one for each output class) of
@@ -83,3 +102,6 @@ for i in range(NUM_EPOCHS):
         # NB: The loss and optimize functions are connected to the model via
         # pytorch.
         optimizer.step()
+
+    test_model(model, dataloader.get_test_loader(), epoch)
+

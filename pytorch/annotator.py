@@ -1,6 +1,5 @@
 import pandas as pd
 
-import pudb; pudb.set_trace()
 landmarks_frame = pd.read_csv(
         '/home/beeps/rtmp/datasets/faces/face_landmarks.csv')
 

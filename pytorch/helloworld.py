@@ -9,11 +9,8 @@
 import torch
 from torch import nn
 from torch import optim
-import pudb
 
 # Naive implementation
-# import pudb; pudb.set_trace()
-
 x = torch.tensor([0.8])
 raw_activation = (x * 1.58) - 0.14
 print("L1 raw activation: {}".format(raw_activation))

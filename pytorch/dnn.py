@@ -71,7 +71,8 @@ optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
 loss_fn = nn.MSELoss()
 
 for epoch in range(NUM_EPOCHS):
-    # TODO: Call model.train().
+    # Activate stateful parts of the model for training
+    model.train()
     for batch in enumerate(data_loader):
         # Get one data set from the loader
         _, (images, expected) = batch

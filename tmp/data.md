@@ -1,4 +1,4 @@
-# Data layre
+# Data layer
 
 * What are the datasystems producing data?
 * What is the data diversity? (generic schema across blob, search index, nosql)

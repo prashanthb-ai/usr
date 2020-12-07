@@ -1,3 +1,4 @@
+import random
 import torch
 from torchvision import transforms
 from torchvision import datasets
@@ -5,19 +6,19 @@ from torchvision import datasets
 # Batch size for image loading
 BATCH_SIZE = 10
 
-# The path to retrieve and store datasets from.
-path = "/home/beeps/rtmp/datasets"
+# The PATH to retrieve and store datasets from.
+PATH = "/home/beeps/rtmp/ml/datasets"
 
 # Transformation applied to all the data in the dataset.
 # This just transforms intput data (PIL images in this case) into a tensor.
-transformations = transforms.Compose([transforms.ToTensor()])
+TRANSFORMATIONS = transforms.Compose([transforms.ToTensor()])
 
 # get_dataset invokes pytorch's datasets library to fetch the MNIST dataset.
 # @root: Where to store/fetch the data set from
 # @download: download dataset into root?
 # @train: download/fetch test or train dataset?
 # @transform: transform the given data using this transform
-def get_dataset(root=path, train=True, transform=transformations,
+def get_dataset(root=PATH, train=True, transform=TRANSFORMATIONS,
         download=True):
     return datasets.MNIST(root=root, train=train, transform=transform,
             download=download)
@@ -49,6 +50,15 @@ def get_test_loader():
     test_dataset = get_dataset(train=False)
     test_loader = get_loader(test_dataset, shuffle=False)
     return test_loader
+
+
+# get_random_image returns a random test image.
+# The returned value is a tuple of the expected image as a:
+# (torch.FloatTensor with dimensions (1, 28, 28), int)
+def get_random_image():
+    dataset = get_dataset(train=False)
+    subset = torch.utils.data.Subset(dataset, [random.randint(0, len(dataset))])
+    return next(iter(torch.utils.data.DataLoader(dataset=subset, batch_size=1)))
 
 ## Example usage
 

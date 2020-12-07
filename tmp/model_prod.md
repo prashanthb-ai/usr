@@ -196,7 +196,31 @@ Raw data source B                       development
 * How far back to store data?
     - When do you version?
 
+## Sagemaker
+
+* 4:1 service: Notebook server, training, hosting, feature. Fully managed.
+    - pytorch, skikitlearn, tf: estimators?
+```
+from sagemaker import pytorch
+pytorch.Estimator
+```
+* Estimator
+* Multiple inference steps
+* Container that just contains hyperparams and model code
+    - Experimentation with reusable preprocessing code
+    - Built in sagemaker algorithms
+* Text -> sex of the speaker via transforms
+
+* TorchServe
+    - local: CLI
+    - SageMaker
+    - EKS
+    - default handlers?
+
+
+
 ## Appendix
 
 * [Ref](https://www.youtube.com/watch?v=EkELQw9tdWE&t=702s)
 * [Features](https://www.youtube.com/watch?v=GcimUEwbydo&list=PLJHNhcCAHd7inG1RU53j4pNPkP8Ws8jMo&index=2&t=1004s)
+* [Sagemaker: AWS](https://aws.amazon.com/blogs/machine-learning/deploying-pytorch-models-for-inference-at-scale-using-torchserve/)

@@ -6,10 +6,10 @@ from torchvision import transforms
 import matplotlib.pyplot as plt
 
 # Output base path to save models
-MODEL_OUT = "/home/beeps/rtmp/ml/models"
+MODEL_OUT = "/home/beeps/rtmp/ml/models/"
 
 # Output base path to save checkpoints
-CHECKPOINT_OUT = "/home/beeps/rtmp/ml/checkpoints"
+CHECKPOINT_OUT = "/home/beeps/rtmp/ml/checkpoints/"
 
 # Size of input images
 INPUT_SIZE = 28 * 28

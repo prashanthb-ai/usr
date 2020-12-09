@@ -20,6 +20,11 @@ $ torch-model-archiver --help
 $ pip install torchserve
 ```
 
+## Classifiers
+
+The default classifier used below is coded [here](https://github.com/pytorch/serve/blob/master/ts/torch_handler/image_classifier.py). It's specified via the `--handler` flag, which can point at either one of the [predefined handlers](https://github.com/pytorch/serve/issues/374#issuecomment-632015182), or a custom .py file.
+
+
 ## Archival/hosting the model
 
 Generating the `.mar` file
@@ -29,7 +34,10 @@ $ torch-model-archiver --model-name dnn \
 --serialized-file /home/beeps/rtmp/ml/models/model.pth \
 --handler image_classifier
 ```
-Hosting the mode
+
+## Hosting the model
+
+Directly on machine
 ```
 $ torchserve --start --model-store /path/to/model_store --models dnn=dnn.mar
 $ curl "http://localhost:8081/models"
@@ -41,6 +49,11 @@ $ curl "http://localhost:8081/models"
     }
   ]
 }
+```
+
+In docker
+```
+
 ```
 
 ## Make inferences

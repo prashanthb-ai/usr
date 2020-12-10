@@ -26,34 +26,45 @@ class MNISTDigitClassifier(object):
 
     def initialize(self, ctx):
         """First try to load torchscript else load eager mode state_dict based model"""
+
         print("[handler] starting initialize")
         properties = ctx.system_properties
+
         print("[handler] looking for devices")
         self.device = torch.device(
             "cuda:" + str(properties.get("gpu_id")) if torch.cuda.is_available() else "cpu")
+
         print("[handler] getting model dir, device is {}".format(self.device))
         model_dir = properties.get("model_dir")
 
         # Read model serialize/pt file
         model_pt_path = os.path.join(model_dir, "model.pt")
+
         # Read model definition file
         model_def_path = os.path.join(model_dir, "model.py")
+
         if not os.path.isfile(model_def_path):
             raise RuntimeError("Missing the model definition file")
 
         print("[handler] about to torch load, model_def_path {} model_pt_path {}".format(model_def_path, model_pt_path))
 
         from model import Net
+
         print("[handler] Finished importing Net from model")
         state_dict = torch.load(model_pt_path, map_location=self.device)
+
         print("[handler] Imported state_dict")
         self.model = Net()
+
         print("[handler] Created Net()")
         self.model.load_state_dict(state_dict)
+
         print("[handler] Loaded state dict {}".format(state_dict))
         self.model.to(self.device)
+
         print("[handler] called model.to")
         self.model.eval()
+
         print("[handler] called model.eval()")
 
         logger.debug(

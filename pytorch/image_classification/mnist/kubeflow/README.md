@@ -76,6 +76,13 @@ DIY vs Hosted
     - default/canary endpoints (99/1%)
     - predict / explain
 
+
+```
+$ minikube start
+```
+
+
+
 ## Text summarization pipeline
 
 TODO: Run on minikube

@@ -5,14 +5,29 @@ Saving/training the model:
 $ python3 main.py --save-model
 $ mv mnist_cnn.pt ~/rtmp/ml/models/model.pt
 ```
+
 Create a `mar` with the model and the handler
 ```
 $ torch-model-archiver --model-name mnist --version 1.0 --model-file model.py --serialized-file ~/rtmp/ml/models/model.pt --handler handler.py
 ```
+
 Run the server
 ```
-$ torchserve --start --model-store model_store --models mnist=mnist.mar
-$ curl http://127.0.0.1:8080/models
+$ torchserve --start --model-store ~/rtmp/ml/models/archive/ --models mnist=mnist.mar
+```
+
+you should see the following logs
+```
+$ grep -ir mnist ./logs/
+
+config/20210105172147102-startup.cfg:model_snapshot={\n  "name"\: "20210105172147102-startup.cfg",\n  "modelCount"\: 1,\n  "created"\: 1609847507107,\n  "models"\: {\n    "mnist"\: {\n      "1.0"\: {\n        "defaultVersion"\: true,\n        "marName"\: "mnist.mar",\n        "minWorkers"\: 8,\n        "maxWorkers"\: 8,\n        "batchSize"\: 1,\n        "maxBatchDelay"\: 100,\n        "responseTimeout"\: 120\n      }\n    }\n  }\n}
+config/20210105172147102-startup.cfg:load_models=mnist\=mnist.mar
+access_log.log:2021-01-05 17:22:48,640 - /127.0.0.1:50396 "PUT /predictions/mnist HTTP/1.1" 200 40
+```
+
+and the following test should work
+```
+$ curl http://127.0.0.1:8081/models
 $ curl http://127.0.0.1:8080/predictions/mnist -T 0.png
 0
 ```

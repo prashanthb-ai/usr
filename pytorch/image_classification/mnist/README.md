@@ -31,6 +31,12 @@ $ curl http://127.0.0.1:8081/models
 $ curl http://127.0.0.1:8080/predictions/mnist -T 0.png
 0
 ```
+You can also run the same thing through docker, as follows
+```
+$ cd docker
+$ docker build -t bprashanth/torchserve-mnist:0.1 .
+$ docker run -d -v /home/beeps/rtmp/ml/models/archives/:/opt/ml/model -p 8080:8080 -p 8081:8081 bprashanth/torchserve-mnist:0.1
+```
 
 ## Deployment on SM
 

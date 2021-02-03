@@ -211,3 +211,4 @@ botocore.errorfactory.ModelError: An error occurred (ModelError) when calling th
 * [Source](https://github.com/pytorch/serve/tree/master/examples/image_classifier/mnist)
 * [How SM runs models](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html)
 * [Preditions against running endpoints](https://sagemaker.readthedocs.io/en/stable/overview.html#how-do-i-make-predictions-against-an-existing-endpoint)
+* [Pytorch kubeflow pipelines](https://medium.com/kubeflow/end-to-end-kubeflow-tutorial-using-a-pytorch-model-in-google-cloud-platform-10fef557a08)
